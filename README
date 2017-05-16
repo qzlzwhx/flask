@@ -8,7 +8,7 @@
 3.不在基于@route(func)方式引入路由，而是通过对象继承方式，实现路由，以方便restfull风格api设计。
 
 网上看到的很多关于flask的路由的源代码研究，讲真，底层都是套接字编程，framwork将uri映射到某个处理函数。flask也是使用python内置的SocketServer进行实现。
-
+其他的hack继续研究中。
 例子：
 middleware：
 
