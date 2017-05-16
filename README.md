@@ -1,1 +1,52 @@
 # flask
+#本项目是基于flask的
+名称引入未做任何修改，仍然是from flask import ***
+
+本文安装完以后主要做了修改。
+1.模拟django的中间件，允许用户可以自定义类似于django的middleware，实现process_request， process_respons
+（但是未实现从setting.py文件导入那种方式，这个很简单就暂时放下了）e。
+2.模拟django的python manager.py XXXX执行命令方式。用户可以自定义command。
+3.不在基于@route(func)方式引入路由，而是通过对象继承方式，实现路由，以方便restfull风格api设计。
+
+网上看到的很多关于flask的路由的源代码研究，讲真，底层都是套接字编程，framwork将uri映射到某个处理函数。flask也是使用python内置的SocketServer进行实现。
+其他的hack继续研究中。
+例子：
+middleware：
+
+from flask.middlewares.BaseMiddleware import BaseMiddleware
+class TestMiddleware(BaseMiddleware):
+
+	def request_process(self, req):
+		print '-------------------'
+		print req
+		print '-------------------'
+
+	def response_process(self, resp):
+		print '================'
+		print resp
+		print '================'
+		pass
+
+command
+注意这个command需要在项目跟目录
+class Command(object):
+
+	def handler(self, *args):
+		print 'love'
+		print args
+
+api：
+from flask.api_service import ApiService
+
+
+class Hello(ApiService):
+	app = 'hello'
+	resource = ''
+
+	def get(self):
+		print 'hello do you love me '
+		return 'this is my test'
+
+
+
+
